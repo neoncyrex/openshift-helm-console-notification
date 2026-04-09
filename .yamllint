@@ -1,0 +1,14 @@
+---
+extends: default
+
+rules:
+  line-length:
+    max: 200
+    level: warning
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 1
+
+# This file is using J2 template
+ignore:
+  - chart/templates/tests/configmap_test.yaml

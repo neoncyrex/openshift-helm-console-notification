@@ -1,0 +1,7 @@
+---
+apiVersion: v2
+name: console-notification
+description: A Helm chart for OpenShift console notification
+type: application
+version: "1.0.0"
+appVersion: "1.0.0"

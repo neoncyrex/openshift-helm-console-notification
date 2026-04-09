@@ -1,0 +1,7 @@
+---
+backgroundColor: "#000000"
+color: "#ffffff"
+text: "Console Notification"
+
+test:
+  image: registry.redhat.io/openshift4/ose-cli-rhel9:latest

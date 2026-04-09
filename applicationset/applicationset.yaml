@@ -1,0 +1,73 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: console-notification
+  namespace: artemii
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            environment: sbx
+        values:
+          backgroundColor: '#068c20'
+          color: White
+          text: Sandbox (sbx) environment
+    - clusters:
+        selector:
+          matchLabels:
+            environment: dev
+        values:
+          text: "Development (dev) environment"
+          backgroundColor: "#0b1678"
+          color: "White"
+    - clusters:
+        selector:
+          matchLabels:
+            environment: uat
+        values:
+          text: "User Acceptance Testing (uat) environment"
+          backgroundColor: "#a14605"
+          color: "White"
+    - clusters:
+        selector:
+          matchLabels:
+            environment: prd
+        values:
+          text: "Production (prd) environment"
+          backgroundColor: "#bf062b"
+          color: "White"
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  template:
+    metadata:
+      name: console-notification-{{name}}
+    spec:
+      project: default
+      revisionHistoryLimit: 5
+      source:
+        helm:
+          releaseName: console-notification
+          valueFiles:
+            - values.yaml
+          valuesObject:
+            backgroundColor: '{{ values.backgroundColor }}'
+            color: '{{ values.color }}'
+            text: '{{ values.text }}'
+        repoURL: git@github.com:neoncyrex/openshift-helm-console-notification.git
+        targetRevision: 'main'
+        path: ./chart
+      destination:
+        server: '{{server}}'
+        namespace: console-notification
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        retry:
+          limit: 3
+        syncOptions:
+          - ApplyOutOfSyncOnly=true
+          - CreateNamespace=true
+          - PruneLast=true

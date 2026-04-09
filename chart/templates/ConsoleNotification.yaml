@@ -1,0 +1,10 @@
+---
+apiVersion: console.openshift.io/v1
+kind: ConsoleNotification
+metadata:
+  name: cluster-console-notification
+spec:
+  backgroundColor: "{{ .Values.backgroundColor }}"
+  color: "{{ .Values.color }}"
+  location: BannerTop
+  text: "{{ .Values.text }}"
