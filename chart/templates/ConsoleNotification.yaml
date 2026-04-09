@@ -6,5 +6,5 @@ metadata:
 spec:
   backgroundColor: "{{ .Values.backgroundColor }}"
   color: "{{ .Values.color }}"
-  location: BannerBottom
+  location: BannerTop
   text: "{{ .Values.text }}"
